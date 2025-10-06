@@ -55,7 +55,7 @@ def main():
     
     except Exception as e:
         logger.error(f"Error: {e}")
-        print(f"❌ Error: {e}")
+        print(f"ERROR: {e}")
         sys.exit(1)
 
 
@@ -64,7 +64,7 @@ def review_pr(repo_owner: str, repo_name: str, pr_number: int):
     logger = logging.getLogger("main.pr")
     
     logger.info(f"Starting review for {repo_owner}/{repo_name}#{pr_number}")
-    print(f"\n🔍 Reviewing PR #{pr_number} from {repo_owner}/{repo_name}\n")
+    print(f"\nReviewing PR #{pr_number} from {repo_owner}/{repo_name}\n")
     
     # Execute workflow
     final_state = execute_review_workflow(repo_owner, repo_name, pr_number)
@@ -76,16 +76,16 @@ def review_pr(repo_owner: str, repo_name: str, pr_number: int):
     print(f"Decision: {final_state.get('decision', 'unknown').upper()}")
     
     if final_state.get('has_critical_issues'):
-        print(f"⚠️  Critical Issues: {final_state.get('critical_reason', 'Unknown')}")
+        print(f"WARNING: Critical Issues: {final_state.get('critical_reason', 'Unknown')}")
     else:
-        print("✅ No critical issues found")
+        print("SUCCESS: No critical issues found")
     
     print("=" * 70)
 
 
 def run_demo():
     """Run demo with sample repository"""
-    print("\n🎯 DEMO MODE - Smart Code Review Pipeline\n")
+    print("\nDEMO MODE - Smart Code Review Pipeline\n")
     print("This will analyze a sample PR from a demo repository.")
     print("\nExample: Amruth22/lung-disease-prediction-yolov10 PR #1")
     
@@ -123,13 +123,13 @@ def interactive_mode():
             pr_number = int(pr_number_str)
             review_pr(repo_owner, repo_name, pr_number)
         except ValueError:
-            print("❌ Invalid PR number")
+            print("ERROR: Invalid PR number")
     
     elif choice == "2":
         run_demo()
     
     else:
-        print("❌ Invalid choice")
+        print("ERROR: Invalid choice")
 
 
 if __name__ == "__main__":
