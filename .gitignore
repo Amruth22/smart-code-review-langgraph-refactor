@@ -33,7 +33,6 @@ ENV/
 *~
 
 # Environment Variables
-.env
 
 # Logs
 logs/

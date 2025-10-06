@@ -23,7 +23,7 @@ DEFAULT_CONFIG = {
     
     # Gemini AI Configuration
     "GEMINI_API_KEY": "",
-    "GEMINI_MODEL": "gemini-2.0-flash-exp",
+    "GEMINI_MODEL": "gemini-2.0-flash",
     
     # Quality Thresholds
     "PYLINT_THRESHOLD": 7.0,
