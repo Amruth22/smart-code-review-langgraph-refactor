@@ -58,7 +58,7 @@ class EmailService:
         pr_title = pr_details.get('title', 'unknown')
         pr_author = pr_details.get('author', 'unknown')
         
-        subject = f"🔍 Code Review Started: PR #{pr_number}"
+        subject = f"Code Review Started: PR #{pr_number}"
         
         content = f"""
 CODE REVIEW STARTED
@@ -81,7 +81,7 @@ This is an automated notification.
         pr_number = pr_details.get('pr_number', 'unknown')
         pr_title = pr_details.get('title', 'unknown')
         
-        status_prefix = "🚨 CRITICAL ISSUES" if is_critical else "✅ REVIEW COMPLETE"
+        status_prefix = "CRITICAL ISSUES" if is_critical else "REVIEW COMPLETE"
         decision = report.get('decision', 'NEEDS_REVIEW').upper()
         
         subject = f"{status_prefix}: PR #{pr_number}"
