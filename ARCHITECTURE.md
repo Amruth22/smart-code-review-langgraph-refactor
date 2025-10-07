@@ -244,6 +244,112 @@ class SecurityAnalyzer:
 
 ## 🔄 Workflow Execution Flow
 
+### **Visual Workflow Diagram**
+
+```mermaid
+graph TD
+    %% Entry Point
+    START([🚀 Workflow Start]) --> PR_DETECTOR[🔍 PR Detector Agent]
+    
+    %% PR Detection and Setup
+    PR_DETECTOR --> |"Parse PR Details<br/>Extract File Data<br/>Send Alert Email"| PARALLEL{"🎯 Launch Parallel Agents"}
+    
+    %% TRUE Parallel Agent Execution (All 5 agents run simultaneously)
+    PARALLEL --> |"Simultaneously"| SECURITY[🔒 Security Analysis Agent]
+    PARALLEL --> |"Simultaneously"| QUALITY[📊 Quality Analysis Agent]
+    PARALLEL --> |"Simultaneously"| COVERAGE[🧪 Coverage Analysis Agent]
+    PARALLEL --> |"Simultaneously"| AI_REVIEW[🤖 AI Review Agent]
+    PARALLEL --> |"Simultaneously"| DOCUMENTATION[📚 Documentation Agent]
+    
+    %% Agent Specializations and Results
+    SECURITY --> |"17+ Vulnerability Patterns<br/>Security Score: 0-10<br/>Severity Classification"| SEC_RESULT[🔒 Security Results<br/>Score: 8.5/10<br/>Vulnerabilities: 3 LOW<br/>Recommendations: 5]
+    
+    QUALITY --> |"PyLint Integration<br/>Code Quality Metrics<br/>Style & Complexity"| QUAL_RESULT[📊 Quality Results<br/>PyLint Score: 7.8/10<br/>Issues: 5 Found<br/>Categories: Style, Convention]
+    
+    COVERAGE --> |"Test Coverage Analysis<br/>Missing Test Detection<br/>Coverage.py Integration"| COV_RESULT[🧪 Coverage Results<br/>Coverage: 85%<br/>Missing Lines: 3<br/>Test Gaps: Identified]
+    
+    AI_REVIEW --> |"Gemini 2.0 Flash<br/>Context-Aware Analysis<br/>Cross-Agent Integration"| AI_RESULT[🤖 AI Review Results<br/>Confidence: 85%<br/>Suggestions: 8<br/>Context: Multi-Agent]
+    
+    DOCUMENTATION --> |"Docstring Analysis<br/>API Documentation<br/>Coverage Assessment"| DOC_RESULT[📚 Documentation Results<br/>Coverage: 75%<br/>Missing: 3 Functions<br/>Quality: Good]
+    
+    %% Agent Coordination
+    SEC_RESULT --> COORDINATOR[🎯 Agent Coordinator]
+    QUAL_RESULT --> COORDINATOR
+    COV_RESULT --> COORDINATOR
+    AI_RESULT --> COORDINATOR
+    DOC_RESULT --> COORDINATOR
+    
+    %% Coordination Logic
+    COORDINATOR --> |"All 5 Agents Complete?"| CHECK{"✅ All Agents<br/>Completed?"}
+    CHECK --> |"No - Wait"| WAIT[⏳ Wait for<br/>Remaining Agents]
+    WAIT --> CHECK
+    CHECK --> |"Yes - Proceed"| SUMMARY[📋 Generate<br/>Multi-Agent Summary]
+    
+    %% Decision Making with Quality Thresholds
+    SUMMARY --> DECISION{"⚖️ Decision Maker<br/>Quality Gate Analysis"}
+    
+    %% Multi-Dimensional Decision Matrix
+    DECISION --> |"Security Score < 8.0<br/>OR High Severity Issues"| ESCALATE_SEC[🔴 Critical Escalation<br/>Security Vulnerabilities]
+    DECISION --> |"PyLint Score < 7.0<br/>Code Quality Issues"| ESCALATE_QUAL[🟡 Human Review<br/>Quality Below Threshold]
+    DECISION --> |"Coverage < 80%<br/>Insufficient Testing"| ESCALATE_COV[🟡 Human Review<br/>Low Test Coverage]
+    DECISION --> |"AI Confidence < 0.8<br/>Uncertain Analysis"| ESCALATE_AI[🟡 Human Review<br/>Low AI Confidence]
+    DECISION --> |"Documentation < 70%<br/>Poor Documentation"| ESCALATE_DOC[🟡 Documentation Review<br/>Missing Documentation]
+    DECISION --> |"All Thresholds Met<br/>Quality Gates Passed"| AUTO_APPROVE[✅ Auto-Approve<br/>All Criteria Met]
+    
+    %% Final Communication Paths
+    AUTO_APPROVE --> COMM_SUCCESS[📧 Communicator Agent<br/>Approval Report]
+    ESCALATE_SEC --> COMM_CRITICAL[📧 Communicator Agent<br/>Critical Security Alert]
+    ESCALATE_QUAL --> COMM_REVIEW[📧 Communicator Agent<br/>Human Review Request]
+    ESCALATE_COV --> COMM_REVIEW
+    ESCALATE_AI --> COMM_REVIEW
+    ESCALATE_DOC --> COMM_DOC[📧 Communicator Agent<br/>Documentation Review]
+    
+    %% Email Notifications Throughout Workflow
+    PR_DETECTOR --> EMAIL1[📧 PR Analysis Started]
+    SEC_RESULT --> EMAIL2[📧 Security Analysis Complete]
+    QUAL_RESULT --> EMAIL3[📧 Quality Analysis Complete]
+    COV_RESULT --> EMAIL4[📧 Coverage Analysis Complete]
+    AI_RESULT --> EMAIL5[📧 AI Review Complete]
+    DOC_RESULT --> EMAIL6[📧 Documentation Analysis Complete]
+    AUTO_APPROVE --> EMAIL7[📧 Auto-Approval Notification]
+    ESCALATE_SEC --> EMAIL8[📧 Critical Security Alert]
+    
+    %% Final States
+    COMM_SUCCESS --> END_SUCCESS([🟢 AUTO-APPROVED<br/>PR Ready for Merge])
+    COMM_CRITICAL --> END_CRITICAL([🔴 CRITICAL ESCALATION<br/>Security Review Required])
+    COMM_REVIEW --> END_REVIEW([🟡 HUMAN REVIEW<br/>Manual Review Required])
+    COMM_DOC --> END_DOC([🟡 DOCUMENTATION REVIEW<br/>Documentation Needed])
+    
+    %% Error Handling
+    PR_DETECTOR --> |"Error"| ERROR[❌ Error Handler]
+    SECURITY --> |"Error"| ERROR
+    QUALITY --> |"Error"| ERROR
+    COVERAGE --> |"Error"| ERROR
+    AI_REVIEW --> |"Error"| ERROR
+    DOCUMENTATION --> |"Error"| ERROR
+    COORDINATOR --> |"Error"| ERROR
+    ERROR --> END_ERROR([🔴 ERROR<br/>System Failure])
+    
+    %% Styling with Black Text
+    classDef agentNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000000
+    classDef resultNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#000000
+    classDef decisionNode fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000000
+    classDef criticalNode fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#000000
+    classDef successNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000000
+    classDef errorNode fill:#fce4ec,stroke:#ad1457,stroke-width:2px,color:#000000
+    classDef emailNode fill:#fff9c4,stroke:#f57f17,stroke-width:1px,color:#000000
+    classDef defaultNode fill:#f9f9f9,stroke:#333333,stroke-width:2px,color:#000000
+    
+    class SECURITY,QUALITY,COVERAGE,AI_REVIEW,DOCUMENTATION agentNode
+    class SEC_RESULT,QUAL_RESULT,COV_RESULT,AI_RESULT,DOC_RESULT resultNode
+    class DECISION,CHECK decisionNode
+    class ESCALATE_SEC,ESCALATE_QUAL,ESCALATE_COV,ESCALATE_AI,ESCALATE_DOC,END_CRITICAL,END_REVIEW,END_DOC criticalNode
+    class AUTO_APPROVE,COMM_SUCCESS,END_SUCCESS successNode
+    class ERROR,END_ERROR errorNode
+    class EMAIL1,EMAIL2,EMAIL3,EMAIL4,EMAIL5,EMAIL6,EMAIL7,EMAIL8 emailNode
+    class START,PR_DETECTOR,PARALLEL,COORDINATOR,SUMMARY,WAIT,COMM_CRITICAL,COMM_REVIEW,COMM_DOC defaultNode
+```
+
 ### **Detailed Flow Diagram**
 
 ```
